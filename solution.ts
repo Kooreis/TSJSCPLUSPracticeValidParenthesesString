@@ -1,15 +1,18 @@
-class Stack<T> {
-    private items: T[] = [];
-
-    push(element: T) {
-        this.items.push(element);
+function isValidParentheses(s: string): boolean {
+    let stack = new Stack<string>();
+    for (let i = 0; i < s.length; i++) {
+        let ch = s.charAt(i);
+        if (ch === '(' || ch === '{' || ch === '[') {
+            stack.push(ch);
+        } else {
+            if (stack.isEmpty()) {
+                return false;
+            }
+            let top = stack.pop();
+            if ((ch === ')' && top !== '(') || (ch === '}' && top !== '{') || (ch === ']' && top !== '[')) {
+                return false;
+            }
+        }
     }
-
-    pop(): T | undefined {
-        return this.items.pop();
-    }
-
-    isEmpty(): boolean {
-        return this.items.length === 0;
-    }
+    return stack.isEmpty();
 }
